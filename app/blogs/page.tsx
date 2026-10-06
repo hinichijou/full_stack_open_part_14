@@ -9,9 +9,7 @@ const Blogs = async ({
   searchParams: Promise<{ title?: string }>
 }) => {
   const { title } = await searchParams
-  const allBlogs = getBlogs()
-
-  const blogs = title != null ? allBlogs.filter((b) => b.title.includes(title)) : allBlogs
+  const blogs = await getBlogs(title)
   blogs.sort((a, b) => b.likes - a.likes)
 
   return (

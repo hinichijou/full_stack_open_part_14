@@ -23,6 +23,7 @@
       "@/actions/*": ["./app/actions/*"],
       "@/app/*": ["./app/*"],
       "@/services/*": ["./app/services/*"],
+      "@/db/*": ["./db/*"],
     }
   },
   "include": [
