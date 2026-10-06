@@ -9,11 +9,14 @@ const Blogs = () => {
       <ul>
         {blogs.map(blog => (
           <li key={blog.id}>
-            <Link href={`/blogs/${blog.id}`}>{blog.title}</Link>
+            <Link href={`/blogs/${blog.id}`}>
+              Title: {blog.title} Author: {blog.author} URL: {blog.url} Likes: {blog.likes}
+            </Link>
           </li>
         ))}
       </ul>
     </div>
   )
 }
+
 export default Blogs
