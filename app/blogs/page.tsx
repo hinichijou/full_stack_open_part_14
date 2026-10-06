@@ -1,8 +1,19 @@
 import Link from "next/link"
+import Form from 'next/form'
+
 import { getBlogs } from "@/services/blogs"
 
-const Blogs = () => {
-  const blogs = getBlogs().sort((a, b) => b.likes - a.likes)
+const Blogs = async ({
+  searchParams,
+}: {
+  searchParams: Promise<{ title?: string }>
+}) => {
+  const { title } = await searchParams
+  const allBlogs = getBlogs()
+
+  const blogs = title != null ? allBlogs.filter((b) => b.title.includes(title)) : allBlogs
+  blogs.sort((a, b) => b.likes - a.likes)
+
   return (
     <div>
       <h2>Blogs</h2>
@@ -15,6 +26,12 @@ const Blogs = () => {
           </li>
         ))}
       </ul>
+      <Form action="/blogs">
+        {/* On submission, the input value will be appended to the URL, e.g. /search?query=abc
+          Source: https://nextjs.org/docs/pages/api-reference/components/form*/}
+        <input name="title" />
+        <button type="submit">Search</button>
+      </Form>
     </div>
   )
 }
