@@ -38,6 +38,7 @@ The easiest way to deploy your Next.js app is to use the [Vercel Platform](https
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
 
 ## About testing
+
 The next.js application behaves differently when running in development or when running a build. The application should always be tested by running `npm run build` && `npm start` in addition to dev environment testing to catch bugs related to relying on dev environment behaviour.
 
 ## About ORM and migrations
@@ -70,3 +71,12 @@ The command lets you select which migration entries to remove from the local jou
 npx drizzle-kit generate
 npx drizzle-kit migrate
 ```
+
+## About authentication
+For authentication the project uses NextAuth.js. NextAuth handles the entire authentication flow: sessions, callbacks, and provider integrations. bcryptjs is used to securely hash and compare passwords. These can be installed with `npm install next-auth@beta bcryptjs && npm install -D @types/bcryptjs`.
+
+NextAuth is configred in the configuration file `auth.ts`. It also contains the authorization function that handles user authentication. NextAuth built-in session type has the fields id, name, and email, of which th email field is used to store the username as there is no email address in our user schema.
+
+The user session can be accessed in client components via the AuthSessionProvider and in the server components with the [auth function](https://authjs.dev/reference/nextjs#auth).
+
+NextAuth requires a secret key to sign the JWT session tokens. This can be generated with bash command `echo "$(openssl rand -base64 32)"`. The result can then be set to the `.env.local` file variable `AUTH_SECRET`. If deploying to Vercel this should be added as a secret environment variable along with the variable `AUTH_URL` which is the public URL of the deployed app.

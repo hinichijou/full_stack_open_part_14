@@ -3,7 +3,7 @@ import { createBlog } from "@/actions/blogs"
 const NewBlog = () => {
   return (
     <div>
-      <h2>Create a new note</h2>
+      <h2>Create a new blog</h2>
       <form action={createBlog}>
         <div>
           <label>
