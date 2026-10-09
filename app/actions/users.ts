@@ -1,6 +1,5 @@
 "use server"
 
-import { redirect } from "next/navigation"
 import { revalidatePath } from "next/cache"
 import bcrypt from "bcryptjs"
 
@@ -11,7 +10,7 @@ import { getFormField, getConstraintFromNeonDbError } from "@/app/utils"
 import { usernameMinLength, passwordMinLength} from "@/app/constants"
 
 export const registerUser = async (
-  prevState: { errors: UserFields, values: UserFields },
+  prevState: { errors: UserFields, values: UserFields, success: boolean },
   formData: FormData
 ) => {
   const errors: UserFields = createUserFields()
@@ -41,7 +40,7 @@ export const registerUser = async (
   )
 
   if (errors.username || errors.name || errors.password || errors.passwordConfirm)
-    return { errors: errors, values: { username, name, password, passwordConfirm } }
+    return { errors: errors, values: { username, name, password, passwordConfirm }, success: false }
 
   const passwordHash = await bcrypt.hash(password, 10)
 
@@ -59,9 +58,9 @@ export const registerUser = async (
       console.error(`Unhandled error ${e}`)
     }
 
-    return { errors: errors, values: { username, name, password, passwordConfirm } }
+    return { errors: errors, values: { username, name, password, passwordConfirm }, success: false }
   }
 
   revalidatePath("/users")
-  redirect("/login")
+  return { errors: errors, values: { username, name, password, passwordConfirm }, success: true }
 }

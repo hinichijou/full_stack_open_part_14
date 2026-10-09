@@ -3,6 +3,7 @@
 :root {
   --background: #ffffff;
   --foreground: #171717;
+  --card: var(--color-zinc-100);
 }
 
 @theme inline {
@@ -16,6 +17,7 @@
   :root {
     --background: #0a0a0a;
     --foreground: #ededed;
+    --card: var(--color-zinc-800);
   }
 }
 
@@ -23,4 +25,97 @@ body {
   background: var(--background);
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
+}
+
+@layer base {
+  h1 {
+    font-size: var(--text-3xl);
+    font-weight: bolder;
+    margin-bottom: --spacing(4);
+  }
+  h2 {
+    font-size: var(--text-2xl);
+    font-weight: bold;
+    margin-bottom: --spacing(4);
+  }
+  h3 {
+    font-size: var(--text-xl);
+    font-weight: bold;
+    margin-top: --spacing(2);
+    margin-bottom: --spacing(2);
+  }
+  button {
+    flex: 1;
+    border: 0;
+    line-height: 2.5;
+    font-size: var(--text-base);
+    text-align: center;
+    color: var(--color-white);
+    text-shadow: 1px 1px 1px var(--color-black);
+    border-radius: 10px;
+    background-color: var(--color-slate-600);
+    box-shadow:
+      inset 2px 2px 3px rgb(255 255 255 / 0.6),
+      inset -2px -2px 3px rgb(0 0 0 / 0.6);
+    width: --spacing(24);
+    margin-top: --spacing(4);
+    margin-bottom: --spacing(4);
+  }
+  button:hover {
+    background-color: var(--color-slate-400);
+  }
+  input {
+    border-style: solid;
+    border-width: 1px;
+    border-radius: 0.25rem;
+    margin-top: --spacing(1);
+    margin-bottom: --spacing(1);
+    flex: 3;
+  }
+}
+
+@layer components {
+  .link {
+    color: var(--color-blue-600);
+    text-decoration: underline;
+  }
+
+  .topdiv {
+    margin: --spacing(6);
+    max-width: var(--container-2xl);
+  }
+
+  .list {
+    display: flex;
+    flex-direction: column;
+    gap: --spacing(2);
+  }
+
+  .listitembox {
+    border-style: solid;
+    border-width: 1px;
+    border-radius: 0.25rem;
+  }
+
+  .listitembox:hover {
+    background-color: var(--color-gray-50);
+  }
+
+  .listitem {
+    display: flex;
+    padding: --spacing(3);
+    color: var(--color-blue-600);
+  }
+
+  .listitem:hover {
+    text-decoration: underline;
+  }
+
+  .contentdiv {
+    display: flex;
+    flex-direction: column;
+    background-color: var(--card);
+    border-radius: 0.25rem;
+    padding: --spacing(2);
+  }
 }

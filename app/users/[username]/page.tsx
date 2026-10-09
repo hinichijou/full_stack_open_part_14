@@ -11,14 +11,16 @@ const UserPage = async ({ params }: { params: Promise<{ username: string }> }) =
   }
 
   return (
-    <div>
+    <div className="topdiv">
       <h2>{user.name}</h2>
-      <p>Username: {user.username}</p>
+      <div className="contentdiv">
+        <p>Username: {user.username}</p>
+      </div>
       <h3>Blogs</h3>
-      <ul>
+      <ul className="list">
         {user.blogs.map((blog) => (
-          <li key={blog.id}>
-            <Link href={`/blogs/${blog.id}`}>{blog.title}</Link>
+          <li key={blog.id} className="listitembox">
+            <Link href={`/blogs/${blog.id}`} className="listitem">{blog.title}</Link>
           </li>
         ))}
       </ul>

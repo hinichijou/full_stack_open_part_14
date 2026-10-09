@@ -1,17 +1,32 @@
 "use client"
 
-import { useActionState } from "react"
+import { useActionState, useEffect } from "react"
+import { useRouter } from "next/navigation"
 
 import { registerUser } from "@/actions/users"
 import FormField from "@/components/FormField"
 import { createUserFields } from "@/app/types"
 import { usernameMinLength, passwordMinLength} from "@/app/constants"
+import { useNotification } from "@/components/NotificationContext"
 
 export default function RegisterPage() {
-  const [state, formAction] = useActionState(registerUser, { errors: createUserFields(), values: createUserFields() })
+  const [state, formAction] = useActionState(
+    registerUser,
+    { errors: createUserFields(), values: createUserFields(), success: false }
+  )
+
+  const { showNotification } = useNotification()
+  const router = useRouter()
+
+  useEffect(() => {
+    if (state.success) {
+      showNotification("user created")
+      router.push("/login")
+    }
+  }, [state, showNotification, router])
 
   return (
-    <div>
+    <div className="topdiv">
       <h2>Register</h2>
       <form action={formAction}>
         <FormField

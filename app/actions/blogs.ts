@@ -10,7 +10,7 @@ import { createBlogFields, type BlogFields } from "@/app/types"
 import { getFormField } from "@/app/utils"
 
 export const createBlog = async (
-  prevState: { errors: BlogFields, values: BlogFields },
+  prevState: { errors: BlogFields, values: BlogFields, success: boolean },
   formData: FormData
 ) => {
   const session = await auth()
@@ -42,12 +42,12 @@ export const createBlog = async (
   )
 
   if (errors.title || errors.author || errors.url)
-    return { errors: errors, values: { title, author, url } }
+    return { errors: errors, values: { title, author, url }, success: false}
 
   await addBlog(title, author, url)
 
   revalidatePath("/blogs")
-  redirect("/blogs")
+  return { errors: errors, values: { title, author, url }, success: true}
 }
 
 export const likeBlog = async (formData: FormData) => {

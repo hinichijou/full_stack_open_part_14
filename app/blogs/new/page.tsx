@@ -1,16 +1,32 @@
 "use client"
 
-import { useActionState } from "react"
+import { useActionState, useEffect } from "react"
+import { useRouter } from "next/navigation"
+
 import { createBlog } from "@/actions/blogs"
 import { createBlogFields } from "@/app/types"
 import { titleMinLength, authorMinLength, urlMinLength} from "@/app/constants"
 import FormField from "@/components/FormField"
+import { useNotification } from "@/components/NotificationContext"
 
 const NewBlog = () => {
-  const [state, formAction] = useActionState(createBlog, { errors: createBlogFields(), values: createBlogFields() })
+  const [state, formAction] = useActionState(
+    createBlog,
+    { errors: createBlogFields(), values: createBlogFields(), success: false }
+  )
+
+  const { showNotification } = useNotification()
+  const router = useRouter()
+
+  useEffect(() => {
+    if (state.success) {
+      showNotification("blog created")
+      router.push("/blogs")
+    }
+  }, [state, showNotification, router])
 
   return (
-    <div>
+    <div className="topdiv">
       <h2>Create a new blog</h2>
       <form action={formAction}>
         <FormField

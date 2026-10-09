@@ -1,11 +1,13 @@
 const FormField = (
-  {label, id, name, minLength, defaultValue, error, itype = "text"}:
-  {label: string, id: string, name: string, minLength: number, defaultValue: string, error: string, itype?: string}
+  {label, id, name, minLength = 0, defaultValue = "", error = "", itype = "text"}:
+  {label: string, id: string, name: string, minLength?: number, defaultValue?: string, error?: string, itype?: string}
 ) => {
   return (
-    <div>
-      <label>
-        {label}
+    <div className="flex flex-col">
+      <div className="flex">
+        <label className="flex items-center ml-1 mr-1 flex-1">
+          {label}
+        </label>
         <input
           type={itype}
           id={id}
@@ -15,8 +17,8 @@ const FormField = (
           //minLength={minLength}
           defaultValue={defaultValue}
         />
-      </label>
-      {error && <p style={{ color: "red" }}>{error}</p>}
+      </div>
+      {error && <p style={{ color: "red" }} className="ml-1 mr-1">{error}</p>}
     </div>
   )
 }
