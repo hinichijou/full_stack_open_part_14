@@ -3,7 +3,6 @@
 :root {
   --background: #ffffff;
   --foreground: #171717;
-  --card: var(--color-zinc-100);
 }
 
 @theme inline {
@@ -11,15 +10,19 @@
   --color-foreground: var(--foreground);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
+  --color-cardlvl1: var(--color-zinc-50);
+  --color-cardlvl2: var(--color-zinc-100);
+  --color-cardlvl3: var(--color-zinc-200);
 }
 
-@media (prefers-color-scheme: dark) {
+/* Removed the dark theme support so only one set of colors needs to be tested. It doesn't seem to be a requirement */
+/* @media (prefers-color-scheme: dark) {
   :root {
     --background: #0a0a0a;
     --foreground: #ededed;
     --card: var(--color-zinc-800);
   }
-}
+} */
 
 body {
   background: var(--background);
@@ -52,7 +55,7 @@ body {
     text-align: center;
     color: var(--color-white);
     text-shadow: 1px 1px 1px var(--color-black);
-    border-radius: 10px;
+    border-radius: var(--radius-lg);
     background-color: var(--color-slate-600);
     box-shadow:
       inset 2px 2px 3px rgb(255 255 255 / 0.6),
@@ -67,7 +70,7 @@ body {
   input {
     border-style: solid;
     border-width: 1px;
-    border-radius: 0.25rem;
+    border-radius: var(--radius-sm);
     margin-top: --spacing(1);
     margin-bottom: --spacing(1);
     flex: 3;
@@ -94,7 +97,7 @@ body {
   .listitembox {
     border-style: solid;
     border-width: 1px;
-    border-radius: 0.25rem;
+    border-radius: var(--radius-sm);
   }
 
   .listitembox:hover {
@@ -114,8 +117,9 @@ body {
   .contentdiv {
     display: flex;
     flex-direction: column;
-    background-color: var(--card);
-    border-radius: 0.25rem;
+    background-color: var(--color-cardlvl1);
+    border-radius: var(--radius-sm);
     padding: --spacing(2);
+    box-shadow: var(--shadow-md);
   }
 }

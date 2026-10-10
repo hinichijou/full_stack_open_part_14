@@ -16,9 +16,11 @@ const NavBar = () => {
         {session ? (
           <>
             <NavLink href="/blogs/new" >create new</NavLink>
-            <em className="text-gray-300">{session.user?.name} logged in</em>
+            <NavLink href="/me" >me</NavLink>
+            {/* While this could be a server component calling auth in the main layout would make the whole application render as server dynamic */}
+            {/* Redirect so that calling signout while in a page requiring user doesn't cause page not found errors */}
             <button
-              onClick={() => signOut()}
+              onClick={() => signOut({ redirectTo: "/" })}
               className="mt-0 mb-0 text-base bg-red-600 hover:bg-red-400 rounded-sm"
             >
               logout
