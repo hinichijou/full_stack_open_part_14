@@ -1,10 +1,9 @@
 "use server"
 
-import { redirect } from "next/navigation"
 import { revalidatePath } from "next/cache"
 import { addBlog, likeBlogById } from "@/services/blogs"
-import { auth } from "@/auth"
 
+import { testLoggedIn } from "@/actions/utils"
 import { titleMinLength, authorMinLength, urlMinLength} from "@/app/constants"
 import { createBlogFields, type BlogFields } from "@/app/types"
 import { getFormField } from "@/app/utils"
@@ -13,10 +12,7 @@ export const createBlog = async (
   prevState: { errors: BlogFields, values: BlogFields, success: boolean },
   formData: FormData
 ) => {
-  const session = await auth()
-  if (!session) {
-    redirect("/login")
-  }
+  testLoggedIn()
 
   const errors: BlogFields = createBlogFields()
 

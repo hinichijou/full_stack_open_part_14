@@ -13,3 +13,12 @@ export const getCurrentUser = async () => {
     where: eq(users.username, session.user.email),
   })
 }
+
+export const getCurrentUserOrThrow = async () => {
+  const user = await getCurrentUser()
+  if (!user) {
+    throw new Error("Not logged in")
+  }
+
+  return user
+}

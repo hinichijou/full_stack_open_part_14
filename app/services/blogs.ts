@@ -1,7 +1,8 @@
-import { eq, ilike, sql } from "drizzle-orm"
+import { eq, ilike } from "drizzle-orm"
 import { db } from "@/db"
 import { blogs } from "@/db/schema"
-import { getCurrentUser } from "@/services/session"
+import { getCurrentUserOrThrow } from "@/services/session"
+import { createReadingListEntry } from "./readinglist"
 
 
 export const getBlogs = async (title?: string) => {
@@ -11,20 +12,24 @@ export const getBlogs = async (title?: string) => {
     })
   }
 
-  return db.query.blogs.findMany()
+  return await db.query.blogs.findMany()
 }
 
 export const addBlog = async (title: string, author: string, url: string ) => {
-  const user = await getCurrentUser()
-  if (!user) {
-    throw new Error("Not logged in")
-  }
+  const user = await getCurrentUserOrThrow()
 
-  await db.insert(blogs).values({ title, author, url, userId: user.id })
+  //Can return a database error that will throw. Can theoretically return an empty list so also taking that possibility into account.
+  const inserted = await db.insert(blogs).values({ title, author, url, userId: user.id }).returning({ id: blogs.id })
+
+  if (inserted.length > 0 && inserted[0].id) {
+    //Passing the same user id so there shouldn't be a situation where the user logs out during the insert operation causing the reading list entry insert to fail
+    //Could be a transaction but I think it also makes sense to create the blog and leave it to the user to manually add the blog to the reading list if the reading list entry creation fails
+    await createReadingListEntry(inserted[0].id, user.id)
+  }
 }
 
 export const getBlogById = async (id: number) => {
-  return db.query.blogs.findFirst({
+  return await db.query.blogs.findFirst({
     where: eq(blogs.id, id),
   })
 }

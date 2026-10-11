@@ -1,7 +1,7 @@
-import Link from "next/link"
 import Form from 'next/form'
 
 import { getBlogs } from "@/services/blogs"
+import ListItemBox from '@/components/ListItemBox'
 
 const Blogs = async ({
   searchParams,
@@ -17,11 +17,11 @@ const Blogs = async ({
       <h2>Blogs</h2>
       <ul className="list">
         {blogs.map(blog => (
-          <li key={blog.id} className="listitembox">
-            <Link href={`/blogs/${blog.id}`} className="listitem">
-              Title: {blog.title} Author: {blog.author} URL: {blog.url} Likes: {blog.likes}
-            </Link>
-          </li>
+          <ListItemBox
+            key={blog.id}
+            href={`/blogs/${blog.id}`}
+            text={`Title: ${blog.title} Author: ${blog.author} URL: ${blog.url} Likes: ${blog.likes}`}
+          />
         ))}
       </ul>
       <Form action="/blogs">

@@ -1,5 +1,5 @@
-import Link from "next/link"
 import { getUsers } from "@/services/users"
+import ListItemBox from '@/components/ListItemBox'
 
 const Users = async () => {
   const users = await getUsers()
@@ -9,9 +9,11 @@ const Users = async () => {
       <h2>Users</h2>
       <ul className="list">
         {users.map((user) => (
-          <li key={user.id} className="listitembox">
-            <Link href={`/users/${user.username}`} className="listitem">{user.name}</Link>
-          </li>
+          <ListItemBox
+            key={user.id}
+            href={`/users/${user.username}`}
+            text={user.name}
+          />
         ))}
       </ul>
     </div>
