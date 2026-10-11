@@ -80,3 +80,38 @@ NextAuth is configred in the configuration file `auth.ts`. It also contains the 
 The user session can be accessed in client components via the AuthSessionProvider and in the server components with the [auth function](https://authjs.dev/reference/nextjs#auth).
 
 NextAuth requires a secret key to sign the JWT session tokens. This can be generated with bash command `echo "$(openssl rand -base64 32)"`. The result can then be set to the `.env.local` file variable `AUTH_SECRET`. If deploying to Vercel this should be added as a secret environment variable along with the variable `AUTH_URL` which is the public URL of the deployed app.
+
+## About MDX
+
+MDX is a superset of markdown that lets you write JSX directly in your markdown files. You can install required packages with `npm install @next/mdx @mdx-js/loader @mdx-js/react @types/mdx`.
+
+Update next.config with the following contents. This allows .mdx files to act as pages, routes, or imports in the application:
+```
+import createMDX from '@next/mdx'
+
+/** @type {import('next').NextConfig} */
+const nextConfig = {
+  // Configure `pageExtensions` to include markdown and MDX files
+  pageExtensions: ['js', 'jsx', 'md', 'mdx', 'ts', 'tsx'],
+  // Optionally, add any other Next.js config below
+}
+
+const withMDX = createMDX({
+  // Add markdown plugins here, as desired
+})
+
+// Merge MDX config with Next.js config
+export default withMDX(nextConfig)
+```
+
+Create an mdx-components.tsx (or .js) file in the root of your project to define global MDX Components. For example, at the same level as pages or app, or inside src if applicable:
+```
+import type { MDXComponents } from 'mdx/types'
+
+const components: MDXComponents = {}
+
+export function useMDXComponents(): MDXComponents {
+  return components
+}
+```
+mdx-components.tsx is required to use @next/mdx with App Router and will not work without it.

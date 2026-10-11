@@ -1,0 +1,14 @@
+// This is the simplest way to add loading UI to a route
+
+// For more fine-grained control, you can manually wrap individual components in <Suspense> boundaries.
+// This is useful when a page has several independent data-fetching sections, and you want each to load
+// independently rather than waiting for the entire page.
+// Each wrapped component can be an async Server Component that fetches its own data. Next.js streams each
+// fallback immediately and replaces it with the real content as soon as that component finishes, so slow sections
+// do not block fast ones.
+
+// const Loading = () => {
+//   return <p>Loading users...</p>
+// }
+
+// export default Loading
