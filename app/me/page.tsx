@@ -47,7 +47,7 @@ const MyPage = async () => {
               key={r.id}
               href={`/blogs/${r.blog.id}`}
               text={`${r.blog.title}`}
-              liClassName="listitembox bg-yellow-100"
+              liClassName="listitembox bg-yellow-100 hover:bg-yellow-50"
               formButtonProps={{
                 action: toggleBlogRead,
                 inputValue: r.blog.id,
@@ -64,7 +64,7 @@ const MyPage = async () => {
               key={r.id}
               href={`/blogs/${r.blog.id}`}
               text={`${r.blog.title}`}
-              liClassName="listitembox bg-sky-100"
+              liClassName="listitembox bg-sky-100 hover:bg-sky-50"
             />
           ))}
         </ul>

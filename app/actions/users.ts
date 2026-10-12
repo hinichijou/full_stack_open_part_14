@@ -1,13 +1,11 @@
 "use server"
 
 import { revalidatePath } from "next/cache"
-import bcrypt from "bcryptjs"
 
-import { db } from "@/db"
-import { users } from "@/db/schema"
 import { createUserFields, type UserFields } from "@/app/types"
-import { getFormField, getConstraintFromNeonDbError } from "@/app/utils"
+import { getFormField, getConstraintFromNeonDbError, createPasswordHash } from "@/app/utils"
 import { usernameMinLength, passwordMinLength} from "@/app/constants"
+import { createUser } from "@/services/users"
 
 export const registerUser = async (
   prevState: { errors: UserFields, values: UserFields, success: boolean },
@@ -42,10 +40,10 @@ export const registerUser = async (
   if (errors.username || errors.name || errors.password || errors.passwordConfirm)
     return { errors: errors, values: { username, name, password, passwordConfirm }, success: false }
 
-  const passwordHash = await bcrypt.hash(password, 10)
+  const passwordHash = await createPasswordHash(password)
 
   try{
-    await db.insert(users).values({ username, name, passwordHash })
+    await createUser(username, name, passwordHash)
   }
   catch(e){
     //Getting data out of the error felt needlessly complicated but I couldn't find any documentation about handling the NeonDB errors

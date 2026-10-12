@@ -1,3 +1,5 @@
+import bcrypt from "bcryptjs"
+
 export const getFormField = (
   key: string,
   formData: FormData,
@@ -26,4 +28,8 @@ export const getConstraintFromNeonDbError = (e: any) => {
   }
 
   return null
+}
+
+export const createPasswordHash = async (pw: string) => {
+  return await bcrypt.hash(pw, 10)
 }

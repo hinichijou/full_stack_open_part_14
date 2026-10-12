@@ -40,3 +40,7 @@ export const getUserWithToken = async (token: string) => {
 	  },
   })
 }
+
+export const createUser = async (username: string, name: string, passwordHash: string) => {
+  return db.insert(users).values({ username, name, passwordHash }).returning()
+}
