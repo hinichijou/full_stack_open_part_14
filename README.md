@@ -79,7 +79,7 @@ NextAuth is configred in the configuration file `auth.ts`. It also contains the 
 
 The user session can be accessed in client components via the AuthSessionProvider and in the server components with the [auth function](https://authjs.dev/reference/nextjs#auth).
 
-NextAuth requires a secret key to sign the JWT session tokens. This can be generated with bash command `echo "$(openssl rand -base64 32)"`. The result can then be set to the `.env.local` file variable `AUTH_SECRET`. If deploying to Vercel this should be added as a secret environment variable along with the variable `AUTH_URL` which is the public URL of the deployed app.
+NextAuth requires a secret key to sign the JWT session tokens. This can be generated with bash command `echo "$(openssl rand -base64 32)"`. The result can then be set to the `.env.local` file variable `NEXTAUTH_SECRET`. If deploying to Vercel this should be added as a secret environment variable along with the variable `NEXTAUTH_URL` which is the public URL of the deployed app.
 
 ## About MDX
 
@@ -115,3 +115,10 @@ export function useMDXComponents(): MDXComponents {
 }
 ```
 mdx-components.tsx is required to use @next/mdx with App Router and will not work without it.
+
+## About tests
+Tests from https://github.com/fullstack-hy2020/next-js-tests/. See the readme for installation.
+
+Tests can be run with `npm run test:e2e`. A single test can be run with `npx playwright test -g "test-name"`. The tests can be found from the `tests` folder.
+
+Playwright  has a configuration file `playwright.config.ts`.

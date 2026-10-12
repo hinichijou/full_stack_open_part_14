@@ -5,7 +5,7 @@ const FormField = (
   return (
     <div className="flex flex-col">
       <div className="flex">
-        <label className="flex items-center ml-1 mr-1 flex-1">
+        <label htmlFor={id} className="flex items-center ml-1 mr-1 flex-1">
           {label}
         </label>
         <input
@@ -18,7 +18,7 @@ const FormField = (
           defaultValue={defaultValue}
         />
       </div>
-      {error && <p style={{ color: "red" }} className="ml-1 mr-1">{error}</p>}
+      {error && <p data-testid={ `${name}-error` } style={{ color: "red" }} className="ml-1 mr-1">{error}</p>}
     </div>
   )
 }

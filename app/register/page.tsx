@@ -55,7 +55,7 @@ export default function RegisterPage() {
           itype="password"
         />
         <FormField
-          label="Confirm password"
+          label="Confirm Password"
           id="passwordConfirm"
           name="passwordConfirm"
           minLength={passwordMinLength}
@@ -63,7 +63,7 @@ export default function RegisterPage() {
           error={state.errors.passwordConfirm}
           itype="password"
         />
-        <button type="submit">Register</button>
+        <button data-testid="register-button" type="submit">Register</button>
       </form>
     </div>
   )

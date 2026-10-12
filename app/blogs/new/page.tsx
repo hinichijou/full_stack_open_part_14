@@ -53,7 +53,7 @@ const NewBlog = () => {
           defaultValue={state.values.url}
           error={state.errors.url}
         />
-        <button type="submit">Create</button>
+        <button data-testid="create-blog-button" type="submit">Create</button>
       </form>
     </div>
   )
