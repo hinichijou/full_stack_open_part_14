@@ -13,7 +13,7 @@ const BlogList = async ({title}: {title?: string}) => {
         <ListItemBox
           key={blog.id}
           href={`/blogs/${blog.id}`}
-          text={`Title: ${blog.title} Author: ${blog.author} URL: ${blog.url} ${blog.likes} likes`}
+          text={`${blog.title} ${blog.likes} likes`}
         />
       ))}
     </ul>

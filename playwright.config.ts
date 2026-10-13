@@ -21,7 +21,7 @@ export default defineConfig({
     // Run browser in headless mode.
     //headless: false,
     // Collect trace when retrying the failed test.
-    trace: 'on-first-retry',
+    trace: 'off',
   },
   // Run your local dev server before starting the tests.
   webServer: {
