@@ -5,6 +5,13 @@ on:
     branches: [ main, master ]
   pull_request:
     branches: [ main, master ]
+  workflow_dispatch:
+    inputs:
+      run_tests:
+        description: Run tests.
+        required: true
+        type: boolean
+        default: false
 
 jobs:
   test:
@@ -34,7 +41,7 @@ jobs:
       - name: Verify environment setup
         run: |
           echo "Checking .env.test file:"
-          cat .env.test | sed 's/=.*/=***/' 
+          cat .env.test | sed 's/=.*/=***/'
           echo ""
           echo "DATABASE_URL secret exists: ${{ secrets.DATABASE_URL != '' }}"
           echo "NEXTAUTH_SECRET secret exists: ${{ secrets.NEXTAUTH_SECRET != '' }}"
