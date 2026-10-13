@@ -1,6 +1,7 @@
 import { eq } from "drizzle-orm"
 import { db } from "@/db"
 import { users } from "@/db/schema"
+import { createPasswordHash } from "@/app/utils"
 
 export const getUsers = async () => {
   return db.query.users.findMany({
@@ -41,6 +42,7 @@ export const getUserWithToken = async (token: string) => {
   })
 }
 
-export const createUser = async (username: string, name: string, passwordHash: string) => {
+export const createUser = async (username: string, name: string, password: string) => {
+  const passwordHash = await createPasswordHash(password)
   return db.insert(users).values({ username, name, passwordHash }).returning()
 }

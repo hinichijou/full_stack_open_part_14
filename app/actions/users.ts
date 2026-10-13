@@ -3,7 +3,7 @@
 import { revalidatePath } from "next/cache"
 
 import { createUserFields, type UserFields } from "@/app/types"
-import { getFormField, getConstraintFromNeonDbError, createPasswordHash } from "@/app/utils"
+import { getFormField, getConstraintFromNeonDbError } from "@/app/utils"
 import { usernameMinLength, passwordMinLength} from "@/app/constants"
 import { createUser } from "@/services/users"
 
@@ -40,10 +40,8 @@ export const registerUser = async (
   if (errors.username || errors.name || errors.password || errors.passwordConfirm)
     return { errors: errors, values: { username, name, password, passwordConfirm }, success: false }
 
-  const passwordHash = await createPasswordHash(password)
-
   try{
-    await createUser(username, name, passwordHash)
+    await createUser(username, name, password)
   }
   catch(e){
     //Getting data out of the error felt needlessly complicated but I couldn't find any documentation about handling the NeonDB errors

@@ -6,10 +6,12 @@ import { useState } from "react"
 
 import FormField from "@/components/FormField"
 import { useNotification } from "@/components/NotificationContext"
+import { useHasCsrfToken } from "@/app/hooks/useHasCsrfToken"
 
 export default function LoginPage() {
   const router = useRouter()
   const [error, setError] = useState("")
+  const hasCsrf = useHasCsrfToken()
 
   const { showNotification } = useNotification()
 
@@ -35,7 +37,7 @@ export default function LoginPage() {
   return (
     <div className="topdiv">
       <h2>Login</h2>
-      {error && <p style={{ color: "red" }}>{error}</p>}
+      {error && <p data-testid="error-message" style={{ color: "red" }}>{error}</p>}
       <form onSubmit={handleSubmit}>
         <FormField
           label="Username"
@@ -48,7 +50,7 @@ export default function LoginPage() {
           name="password"
           itype="password"
         />
-        <button type="submit">Login</button>
+        <button disabled={!hasCsrf} data-testid="login-button" type="submit">Login</button>
       </form>
     </div>
   )

@@ -13,6 +13,7 @@ export default function Notification() {
   }
 
   return <div
+    data-testid="notification"
     className={`${colorVariants[type]} py-2.5 px-4 mb-2.5 rounded-sm text-white`}
   >
     {message}

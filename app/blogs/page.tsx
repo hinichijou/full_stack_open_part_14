@@ -8,12 +8,12 @@ const BlogList = async ({title}: {title?: string}) => {
   const blogs = await getBlogs(title)
   blogs.sort((a, b) => b.likes - a.likes)
   return (
-    <ul className="list">
+    <ul data-testid="blogs-list" className="list">
       {blogs.map(blog => (
         <ListItemBox
           key={blog.id}
           href={`/blogs/${blog.id}`}
-          text={`Title: ${blog.title} Author: ${blog.author} URL: ${blog.url} Likes: ${blog.likes}`}
+          text={`Title: ${blog.title} Author: ${blog.author} URL: ${blog.url} ${blog.likes} likes`}
         />
       ))}
     </ul>
@@ -36,8 +36,8 @@ const Blogs = async ({
       <Form action="/blogs">
         {/* On submission, the input value will be appended to the URL, e.g. /search?query=abc
           Source: https://nextjs.org/docs/pages/api-reference/components/form*/}
-        <input name="title" className="mr-4" />
-        <button type="submit">Search</button>
+        <input data-testid="filter-input" name="title" className="mr-4" />
+        <button data-testid="search-button" type="submit">Search</button>
       </Form>
     </div>
   )

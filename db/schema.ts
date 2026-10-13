@@ -48,3 +48,6 @@ export const readingListRelations = relations(readingList, ({ one }) => ({
     references: [blogs.id],
   }),
 }))
+
+//https://orm.drizzle.team/docs/goodies
+//export type BlogSelect = typeof blogs.$inferSelect;

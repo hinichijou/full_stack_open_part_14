@@ -122,3 +122,8 @@ Tests from https://github.com/fullstack-hy2020/next-js-tests/. See the readme fo
 Tests can be run with `npm run test:e2e`. A single test can be run with `npx playwright test -g "test-name"`. The tests can be found from the `tests` folder.
 
 Playwright  has a configuration file `playwright.config.ts`.
+
+There is one change to the original test spec on line 464 from `await page.waitForTimeout(500)` to `await page.waitForTimeout(1000)` because the test failed because the content wasn't updating fast enough.
+
+Example of successful run of local tests:
+![test run](https://github.com/hinichijou/full_stack_open_part_14/blob/task_screenshots/exercise_24.png?raw=true)

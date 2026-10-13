@@ -22,10 +22,10 @@ const BlogPage = async ({ params }: { params: Promise<{ id: string }> }) => {
     readingListEntry = await findReadingListEntry(blog.id)
 
   return (
-    <div className="topdiv">
+    <div data-testid="blog-detail" className="topdiv">
       <div className="contentdiv">
-        <h2>{blog.title}</h2>
-        <p className="text-textlight">by {blog.author}</p>
+        <h2 data-testid="blog-title">{blog.title}</h2>
+        <p data-testid="blog-author" className="text-textlight">by {blog.author}</p>
         <div>
           <span className="mr-4">Likes: {blog.likes}</span>
           <FormButton
@@ -37,6 +37,7 @@ const BlogPage = async ({ params }: { params: Promise<{ id: string }> }) => {
           { user ? (
               !readingListEntry ? (
                 <FormButton
+                  data_testid="add-to-reading-list-button"
                   action={addBlogToReadingList}
                   inputValue={blog.id}
                   text="Add to reading list"
@@ -44,6 +45,7 @@ const BlogPage = async ({ params }: { params: Promise<{ id: string }> }) => {
                 />
               ) : (
                 <FormButton
+                  data_testid="remove-from-reading-list-button"
                   action={removeBlogFromReadingList}
                   inputValue={blog.id}
                   text="Remove from reading list"
