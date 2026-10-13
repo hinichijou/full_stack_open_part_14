@@ -132,3 +132,5 @@ Example of a successful run of local tests:
 Example of a successful workflow run:
 
 https://github.com/hinichijou/full_stack_open_part_14/actions/runs/38478167964/job/115573944178
+
+There are also example runs like https://github.com/hinichijou/full_stack_open_part_14/actions/runs/38479370094/job/115577898016 of the tests being [flaky](https://playwright.dev/docs/test-retries#retries) but since the tests always pass locally, there are workflow runs where they pass on first try and they always seem to pass at least on retry I would say the exercise requirements are fulfilled and the flakiness is some combination of the test code, playwright configuration and limited github workflow runner resources and since all the tests pass it can be said that there are no missing required features.
