@@ -30,9 +30,7 @@ const Blogs = async ({
   return (
     <div className="topdiv">
       <h2>Blogs</h2>
-      <Suspense fallback={<p>Loading blogs...</p>}>
-        <BlogList title={title} />
-      </Suspense>
+      <BlogList title={title} />
       <Form action="/blogs">
         {/* On submission, the input value will be appended to the URL, e.g. /search?query=abc
           Source: https://nextjs.org/docs/pages/api-reference/components/form*/}
