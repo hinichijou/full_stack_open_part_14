@@ -123,8 +123,12 @@ Tests can be run with `npm run test:e2e`. A single test can be run with `npx pla
 
 Playwright  has a configuration file `playwright.config.ts`.
 
-There is one change to the original test spec on line 464 from `await page.waitForTimeout(500)` to `await page.waitForTimeout(1000)` because the test failed because the content wasn't updating fast enough.
+There is one change to the original test spec on line 464 from `await page.waitForTimeout(500)` to `await page.waitForTimeout(1000)` because the test was failing locally because the content wasn't updating fast enough.
 
-Example of successful run of local tests:
+Example of a successful run of local tests:
 
 ![test run](https://github.com/hinichijou/full_stack_open_part_14/blob/main/task_screenshots/exercise_24.png?raw=true)
+
+Example of a successful workflow run:
+
+https://github.com/hinichijou/full_stack_open_part_14/actions/runs/38478167964/job/115573944178
